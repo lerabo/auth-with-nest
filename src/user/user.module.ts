@@ -8,14 +8,14 @@ import { EmailConfirmationService } from './emailConfirmation.service';
 import { EmailConfirmationController } from './emailConformation.controller';
 
 @Module({
-	imports: [
-		JwtModule.register({
-		  secret: process.env.JWT_SECRET,
-		  signOptions: { expiresIn: process.env.JWT_EXPIRE_TIME },
-		}),
-		TypeOrmModule.forFeature([User]),
-	  ],
+  imports: [
+    JwtModule.register({
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: process.env.JWT_EXPIRE_TIME },
+    }),
+    TypeOrmModule.forFeature([User]),
+  ],
   controllers: [UserController, EmailConfirmationController],
-  providers: [UserService, EmailConfirmationService]
+  providers: [UserService, EmailConfirmationService],
 })
 export class UserModule {}

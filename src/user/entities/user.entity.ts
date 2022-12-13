@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('user')
 export class User {
@@ -20,6 +20,6 @@ export class User {
   @Column({ type: 'boolean', default: false })
   isEmailConfirmed: boolean;
 
-  @Column({ type:"blob", nullable: true })
+  @Column({ type: 'blob', nullable: true })
   avatar?: string;
 }

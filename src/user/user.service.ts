@@ -13,28 +13,33 @@ const SALT_NUMBER = 8;
 @Injectable()
 export class UserService {
   httpService: any;
-	constructor(
-		@InjectRepository(User)
-		private readonly userRepository: Repository<User>,
-		private readonly jwtService: JwtService,
+  constructor(
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
+    private readonly jwtService: JwtService,
     private readonly emailConfirmationService: EmailConfirmationService,
-	) {}
+  ) {}
 
-	async signUp(userDto: UserDto): Promise<User> {
-		const { firstName, lastName, password, email } = userDto;
-		const alreadyExist = await this.userRepository.findOneBy({ email });
-		if (alreadyExist) {
-			throw new HttpException(
-				{
-					status: HttpStatus.BAD_REQUEST,
-					error: 'This email already exist.',
-				},
-				HttpStatus.BAD_REQUEST,
-			);
-		}
-		const hashedPassword = await bcrypt.hash(password, SALT_NUMBER);
+  async signUp(userDto: UserDto): Promise<User> {
+    const { firstName, lastName, password, email } = userDto;
+    const alreadyExist = await this.userRepository.findOneBy({ email });
+    if (alreadyExist) {
+      throw new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          error: 'This email already exist.',
+        },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    const hashedPassword = await bcrypt.hash(password, SALT_NUMBER);
     await this.emailConfirmationService.sendVerificationLink(email);
-    return await this.userRepository.save({ firstName, lastName, email, password: hashedPassword });
+    return await this.userRepository.save({
+      firstName,
+      lastName,
+      email,
+      password: hashedPassword,
+    });
   }
 
   async signIn(userDto: UserDto): Promise<TokenTypes> {
@@ -70,18 +75,18 @@ export class UserService {
   }
 
   async findAllUsers() {
-	const users = await this.userRepository
-		.createQueryBuilder('user')
-		.getMany();
-	return users;
+    const users = await this.userRepository
+      .createQueryBuilder('user')
+      .getMany();
+    return users;
   }
 
   async findOneUser(id: number) {
     const user = await this.userRepository
-		.createQueryBuilder('user')
-		.where('user.id LIKE :id', { id })
-		.getOne();
-	return user;
+      .createQueryBuilder('user')
+      .where('user.id LIKE :id', { id })
+      .getOne();
+    return user;
   }
 
   async changeInfo(userDto: Partial<UserDto>) {
@@ -116,11 +121,11 @@ export class UserService {
     }
     const password = bcrypt.hashSync(newPassword, SALT_NUMBER);
     await this.userRepository.update({ email: email }, { password: password });
-    return {email, password};
+    return { email, password };
   }
 
-  async uploadAvatar(id, userDto: Partial<UserDto>){
-    const user = await this.userRepository.findOneBy({id});
+  async uploadAvatar(id, userDto: Partial<UserDto>) {
+    const user = await this.userRepository.findOneBy({ id });
     if (!user) {
       throw 'User not found';
     }
