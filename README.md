@@ -31,10 +31,7 @@
 ```bash
 $ npm install
 ```
-Create an .env file locally. You can duplicate .env.example and name the new copy .env. Adapt the variables to your needs. Change my MySQL variables to yours and create container by
-```
-docker compose up
-```
+Create an .env file locally. You can duplicate .env.example and name the new copy .env.
 ## Running the app
 
 ```bash
