@@ -5,7 +5,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { EmailConfirmationService } from './emailConfirmation.service';
-import { EmailConfirmationController } from './emailConformation.controller';
+import { EmailConfirmationController } from './emailConfirmation.controller';
 
 @Module({
   imports: [

@@ -42,7 +42,7 @@ export class UserService {
     });
   }
 
-  async signIn(userDto: UserDto): Promise<TokenTypes> {
+  async signIn(userDto: Partial<UserDto>): Promise<TokenTypes> {
     const { email, password } = userDto;
     const user: User = await this.userRepository.findOneBy({ email });
     if (!user) {

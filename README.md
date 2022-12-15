@@ -31,7 +31,10 @@
 ```bash
 $ npm install
 ```
-
+Create an .env file locally. You can duplicate .env.example and name the new copy .env. Adapt the variables to your needs. Change my MySQL variables to yours and create container by
+```
+docker compose up
+```
 ## Running the app
 
 ```bash
@@ -44,6 +47,9 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+
+## Confirmation Email
+I saved my real sendgrid key at .env.example file so that you can send verification email, but you can create your one and replace at .env file. Sometimes the server itself can delay emails, so you can check messages at your Sendgrid activity page. 
 
 ## Test
 

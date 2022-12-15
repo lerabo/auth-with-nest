@@ -13,7 +13,7 @@ export class UserController {
   }
 
   @Post('signIn')
-  signIn(@Body() userDto: UserDto) {
+  signIn(@Body() userDto: Partial<UserDto>) {
     return this.userService.signIn(userDto);
   }
 
